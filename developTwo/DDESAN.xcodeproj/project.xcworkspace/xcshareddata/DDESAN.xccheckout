@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>2908F47A-46A8-4D72-BEF8-7B32999EC3AD</string>
+	<key>IDESourceControlProjectName</key>
+	<string>DDESAN</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>09722B38416C4EFBC0C5A48D552836B3138F3DC2</key>
+		<string>https://git.oschina.net/chobitly/ddesan_ios.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>DDESAN.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>09722B38416C4EFBC0C5A48D552836B3138F3DC2</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://git.oschina.net/chobitly/ddesan_ios.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>09722B38416C4EFBC0C5A48D552836B3138F3DC2</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>09722B38416C4EFBC0C5A48D552836B3138F3DC2</string>
+			<key>IDESourceControlWCCName</key>
+			<string>develop%E5%89%AF%E6%9C%AC</string>
+		</dict>
+	</array>
+</dict>
+</plist>

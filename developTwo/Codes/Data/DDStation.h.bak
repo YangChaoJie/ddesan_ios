@@ -1,0 +1,35 @@
+#import "DDDataObject.h"
+
+@interface DDStation : DDDataObject
+
+- (instancetype)init __unavailable;
+
+@property(nonatomic, readonly) NSString* id;
+@property(nonatomic, readonly) NSString* name;
+@property(nonatomic, readonly) NSString* address;
+@property(nonatomic, readonly) NSString* imageFile;
+@property(nonatomic, readonly) NSNumber* longitude;
+@property(nonatomic, readonly) NSNumber* latitude;
+@property(nonatomic, readonly) NSArray* oilTypes;
+
+@end
+
+#pragma mark -
+
+@interface DDStationBuilder : NSObject
+
+@property(nonatomic, copy) NSString* id;
+@property(nonatomic, copy) NSString* name;
+@property(nonatomic, copy) NSString* address;
+@property(nonatomic, copy) NSString* imageFile;
+@property(nonatomic, copy) NSNumber* longitude;
+@property(nonatomic, copy) NSNumber* latitude;
+@property(nonatomic, copy) NSArray* oilTypes;
+
+- (DDStation*)build;
+
+@end
+
+#pragma mark -
+
+extern DDStation* DDStationFromJsonObject(id jsonObject);

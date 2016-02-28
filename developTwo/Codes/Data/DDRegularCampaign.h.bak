@@ -1,0 +1,9 @@
+#import "DDCampaign.h"
+
+@interface DDRegularCampaign : DDCampaign
+
+@end
+
+#pragma mark -
+
+extern DDRegularCampaign* DDRegularCampaignFromJsonObject(id jsonObject);

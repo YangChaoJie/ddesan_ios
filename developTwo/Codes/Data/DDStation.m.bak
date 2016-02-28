@@ -1,0 +1,180 @@
+#import "DDStation.h"
+
+#import "NSObject+JsonParsing.h"
+#import "DDUtilities.h"
+
+@interface DDStation() {
+@package
+	NSString* _id;
+	NSString* _name;
+	NSString* _address;
+	NSString* _imageFile;
+	NSNumber* _longitude;
+	NSNumber* _latitude;
+	NSArray* _oilTypes;
+}
+
+@end
+
+#pragma mark -
+
+@implementation DDStation
+
+@synthesize id = _id;
+
+@synthesize name = _name;
+
+@synthesize address = _address;
+
+@synthesize imageFile = _imageFile;
+
+@synthesize longitude = _longitude;
+
+@synthesize latitude = _latitude;
+
+@synthesize oilTypes = _oilTypes;
+
+- (NSUInteger)hash {
+	NSUInteger hash = [super hash];
+	hash |= [_id hash];
+	hash |= [_name hash];
+	hash |= [_address hash];
+	hash |= [_imageFile hash];
+	hash |= [_longitude hash];
+	hash |= [_latitude hash];
+	hash |= [_oilTypes hash];
+	
+	return hash;
+}
+
+- (BOOL)isEqual: (id)object {
+	if(![super isEqual: object]) {
+		return FALSE;
+	}
+	
+	DDStation* station = object;
+	
+	if(!objectsEqual(station->_id, _id)) {
+		return FALSE;
+	}
+	
+	if(!objectsEqual(station->_name, _name)) {
+		return FALSE;
+	}
+	
+	if(!objectsEqual(station->_address, _address)) {
+		return FALSE;
+	}
+	
+	if(!objectsEqual(station->_imageFile, _imageFile)) {
+		return FALSE;
+	}
+	
+	if(!objectsEqual(station->_longitude, _longitude)) {
+		return FALSE;
+	}
+	
+	if(!objectsEqual(station->_latitude, _latitude)) {
+		return FALSE;
+	}
+	
+	if(!objectsEqual(station->_oilTypes, _oilTypes)) {
+		return FALSE;
+	}
+	
+	return TRUE;
+}
+
+- (instancetype)copyWithZone: (NSZone*)zone {
+	DDStation* copy = [super copyWithZone: zone];
+	copy->_id = [_id copyWithZone: zone];
+	copy->_name = [_name copyWithZone: zone];
+	copy->_address = [_address copyWithZone: zone];
+	copy->_imageFile = [_imageFile copyWithZone: zone];
+	copy->_longitude = [_longitude copyWithZone: zone];
+	copy->_latitude = [_latitude copyWithZone: zone];
+	copy->_oilTypes = [_oilTypes copyWithZone: zone];
+	
+	return copy;
+}
+
+@end
+
+#pragma mark -
+
+@interface DDStationBuilder() {
+	NSString* _id;
+	NSString* _name;
+	NSString* _address;
+	NSString* _imageFile;
+	NSNumber* _longitude;
+	NSNumber* _latitude;
+	NSArray* _oilTypes;
+}
+
+@end
+
+#pragma mark -
+
+@implementation DDStationBuilder
+
+@synthesize id = _id;
+
+@synthesize name = _name;
+
+@synthesize address = _address;
+
+@synthesize imageFile = _imageFile;
+
+@synthesize longitude = _longitude;
+
+@synthesize latitude = _latitude;
+
+@synthesize oilTypes = _oilTypes;
+
+- (DDStation*)build {
+	DDStation* station = [DDStation alloc];
+	station->_id = _id;
+	station->_name = _name;
+	station->_address = _address;
+	station->_imageFile = _imageFile;
+	station->_longitude = _longitude;
+	station->_latitude = _latitude;
+	station->_oilTypes = _oilTypes;
+	
+	return station;
+}
+
+@end
+
+#pragma mark -
+
+DDStation* DDStationFromJsonObject(id jsonObject) {
+	DDStationBuilder* builder = [[DDStationBuilder alloc] init];
+	[builder setId: [jsonObject[@"shop_id"] asString]];
+	[builder setName: [jsonObject[@"shop_name"] asString]];
+	[builder setAddress: [jsonObject[@"addr"] asString]];
+	[builder setImageFile: [jsonObject[@"shop_icon"] asString]];
+	[builder setLongitude: [jsonObject[@"shop_lng"] asNumber]];
+	[builder setLatitude: [jsonObject[@"shop_lat"] asNumber]];
+	[builder setOilTypes: ^NSArray* {
+		NSArray* jsonOilTypes = [jsonObject[@"oil_type"] asArray];
+		if(jsonOilTypes != nil) {
+			NSMutableArray* oilTypes = [[NSMutableArray alloc] init];
+			
+			for(id jsonOilType in jsonOilTypes) {
+				NSNumber* oilType = [jsonOilType asNumber];
+				if(oilType != nil) {
+					[oilTypes addObject: oilType];
+				}
+			}
+			
+			return oilTypes;
+		}
+		else {
+			return nil;
+		}
+	} ()];
+	
+	return [builder build];
+}

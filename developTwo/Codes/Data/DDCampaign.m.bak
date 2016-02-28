@@ -1,0 +1,51 @@
+#import "DDCampaign.h"
+
+#import "DDHotCampaign.h"
+#import "DDRegularCampaign.h"
+#import "NSObject+JsonParsing.h"
+
+@implementation DDCampaign
+
++ (instancetype)alloc {
+	assert([self class] != [DDCampaign class]);
+	
+	return [super alloc];
+}
+
+@dynamic id;
+
+@dynamic station;
+
+@end
+
+#pragma mark -
+
+@implementation DDCampaignBuilder
+
++ (instancetype)alloc {
+	assert([self class] != [DDCampaignBuilder class]);
+	
+	return [super alloc];
+}
+
+@dynamic id;
+
+@dynamic station;
+
+@end
+
+#pragma mark -
+
+DDCampaign* DDCampaignFromJsonObject(id jsonObject) {
+	NSString* campaignType = [jsonObject[@"Campaign"][@"campaign_type"] asString];
+	
+	if([campaignType isEqualToString: @"1"]) {
+		return DDHotCampaignFromJsonObject(jsonObject);
+	}
+	
+	if([campaignType isEqualToString: @"2"]) {
+		return DDRegularCampaignFromJsonObject(jsonObject);
+	}
+	
+	return nil;
+}

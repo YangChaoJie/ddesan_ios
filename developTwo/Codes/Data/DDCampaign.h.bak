@@ -1,0 +1,23 @@
+#import "DDDataObject.h"
+
+@class DDStation;
+
+@interface DDCampaign : DDDataObject
+
+@property(nonatomic, readonly) NSString* id;
+@property(nonatomic, readonly) DDStation* station;
+
+@end
+
+#pragma mark -
+
+@interface DDCampaignBuilder : NSObject
+
+@property(nonatomic, copy) NSString* id;
+@property(nonatomic, copy) DDStation* station;
+
+@end
+
+#pragma mark -
+
+extern DDCampaign* DDCampaignFromJsonObject(id jsonObject);

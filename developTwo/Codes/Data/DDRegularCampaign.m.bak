@@ -1,0 +1,12 @@
+#import "DDRegularCampaign.h"
+
+@implementation DDRegularCampaign
+
+@end
+
+#pragma mark -
+
+DDRegularCampaign* DDRegularCampaignFromJsonObject(id jsonObject) {
+	// TODO
+	return nil;
+}

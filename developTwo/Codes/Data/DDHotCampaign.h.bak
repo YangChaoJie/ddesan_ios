@@ -1,0 +1,29 @@
+#import "DDCampaign.h"
+
+@interface DDHotCampaign : DDCampaign
+
+- (instancetype)init __unavailable;
+
+@property(nonatomic, readonly) NSNumber* priceCutPerLiter;
+@property(nonatomic, readonly) NSNumber* amountLimitInLiter;
+@property(nonatomic, readonly) NSNumber* totalQuota;
+@property(nonatomic, readonly) NSNumber* remainingQuota;
+
+@end
+
+#pragma mark -
+
+@interface DDHotCampaignBuilder : DDCampaignBuilder
+
+@property(nonatomic, copy) NSNumber* priceCutPerLiter;
+@property(nonatomic, copy) NSNumber* amountLimitInLiter;
+@property(nonatomic, copy) NSNumber* totalQuota;
+@property(nonatomic, copy) NSNumber* remainingQuota;
+
+- (DDHotCampaign*)build;
+
+@end
+
+#pragma mark -
+
+DDHotCampaign* DDHotCampaignFromJsonObject(id jsonObject);

@@ -1,0 +1,150 @@
+#import "DDHotCampaign.h"
+
+#import "NSObject+JsonParsing.h"
+#import "DDStation.h"
+#import "DDUtilities.h"
+
+@interface DDHotCampaign() {
+@package
+	NSString* _id;
+	DDStation* _station;
+	NSNumber* _priceCutPerLiter;
+	NSNumber* _amountLimitInLiter;
+	NSNumber* _totalQuota;
+	NSNumber* _remainingQuota;
+}
+
+@end
+
+#pragma mark -
+
+@implementation DDHotCampaign
+
+@synthesize id = _id;
+
+@synthesize station = _station;
+
+@synthesize priceCutPerLiter = _priceCutPerLiter;
+
+@synthesize amountLimitInLiter = _amountLimitInLiter;
+
+@synthesize totalQuota = _totalQuota;
+
+@synthesize remainingQuota = _remainingQuota;
+
+- (NSUInteger)hash {
+	NSUInteger hash = [super hash];
+	hash |= [_id hash];
+	hash |= [_station hash];
+	hash |= [_priceCutPerLiter hash];
+	hash |= [_amountLimitInLiter hash];
+	hash |= [_totalQuota hash];
+	hash |= [_remainingQuota hash];
+	
+	return hash;
+}
+
+- (BOOL)isEqual: (id)object {
+	if(![super isEqual: object]) {
+		return FALSE;
+	}
+	
+	DDHotCampaign* hotCampaign = (DDHotCampaign*)object;
+	
+	if(!objectsEqual(hotCampaign->_id, _id)) {
+		return FALSE;
+	}
+	
+	if(!objectsEqual(hotCampaign->_station, _station)) {
+		return FALSE;
+	}
+	
+	if(!objectsEqual(hotCampaign->_priceCutPerLiter, _priceCutPerLiter)) {
+		return FALSE;
+	}
+	
+	if(!objectsEqual(hotCampaign->_amountLimitInLiter, _amountLimitInLiter)) {
+		return FALSE;
+	}
+	
+	if(!objectsEqual(hotCampaign->_totalQuota, _totalQuota)) {
+		return FALSE;
+	}
+	
+	if(!objectsEqual(hotCampaign->_remainingQuota, _remainingQuota)) {
+		return FALSE;
+	}
+	
+	return TRUE;
+}
+
+- (id)copyWithZone: (NSZone*)zone {
+	DDHotCampaign* copy = [DDHotCampaign allocWithZone: zone];
+	copy->_id = [_id copyWithZone: zone];
+	copy->_station = [_station copyWithZone: zone];
+	copy->_priceCutPerLiter = [_priceCutPerLiter copyWithZone: zone];
+	copy->_amountLimitInLiter = [_amountLimitInLiter copyWithZone: zone];
+	copy->_totalQuota = [_totalQuota copyWithZone: zone];
+	copy->_remainingQuota = [_remainingQuota copyWithZone: zone];
+	
+	return copy;
+}
+
+@end
+
+#pragma mark -
+
+@interface DDHotCampaignBuilder() {
+	NSString* _id;
+	DDStation* _station;
+	NSNumber* _priceCutPerLiter;
+	NSNumber* _amountLimitInLiter;
+	NSNumber* _totalQuota;
+	NSNumber* _remainingQuota;
+}
+
+@end
+
+#pragma mark -
+
+@implementation DDHotCampaignBuilder
+
+@synthesize id = _id;
+
+@synthesize station = _station;
+
+@synthesize priceCutPerLiter = _priceCutPerLiter;
+
+@synthesize amountLimitInLiter = _amountLimitInLiter;
+
+@synthesize totalQuota = _totalQuota;
+
+@synthesize remainingQuota = _remainingQuota;
+
+- (DDHotCampaign*)build {
+	DDHotCampaign* hotCampaign = [DDHotCampaign alloc];
+	hotCampaign->_id = _id;
+	hotCampaign->_station = _station;
+	hotCampaign->_priceCutPerLiter = _priceCutPerLiter;
+	hotCampaign->_amountLimitInLiter = _amountLimitInLiter;
+	hotCampaign->_totalQuota = _totalQuota;
+	hotCampaign->_remainingQuota = _remainingQuota;
+	
+	return hotCampaign;
+}
+
+@end
+
+#pragma mark -
+
+DDHotCampaign* DDHotCampaignFromJsonObject(id jsonObject) {
+	DDHotCampaignBuilder* builder = [[DDHotCampaignBuilder alloc] init];
+	[builder setId: [jsonObject[@"Campaign"][@"campaign_id"] asString]];
+	[builder setStation: DDStationFromJsonObject([jsonObject[@"Shop"] asDictionary])];
+	[builder setPriceCutPerLiter: [jsonObject[@"Campaign"][@"substract_price"] asNumber]];
+	[builder setAmountLimitInLiter: [jsonObject[@"Campaign"][@"oil_limit"] asNumber]];
+	[builder setTotalQuota: [jsonObject[@"Campaign"][@"person_limit"] asNumber]];
+	[builder setRemainingQuota: [jsonObject[@"Campaign"][@"person_surplus"] asNumber]];
+	
+	return [builder build];
+}
